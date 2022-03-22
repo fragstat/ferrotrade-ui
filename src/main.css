@@ -1,0 +1,107 @@
+/* ROOTS */
+/* кусь */
+/* кукусь */
+/* маракусь */
+/* я сегодня обожрусь */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap");
+:root {
+  --color-primary: #3b4da3;
+  --color-side: #e5e5e5;
+  --color-side-light: #c4c4c4;
+  --color-side-dark: #00000056;
+  --color-font: #000000;
+  --color-font-second: #ffffff;
+  --color-error: #f50000;
+}
+
+/* RESTYLE */
+
+a {
+  text-decoration: none;
+}
+input {
+  outline: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+textarea {
+  outline: none;
+}
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+/* BASIC */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 15px;
+  font-family: "Roboto Mono", monospace;
+  font-weight: 500;
+}
+input {
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  border: 0.15rem solid var(--color-primary);
+}
+input[placeholder] {
+  text-overflow: ellipsis;
+}
+::-webkit-input-placeholder {
+  color: var(--color-side-light);
+}
+/* color: var(--color-side-light); */
+textarea {
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  border: 0.15rem solid var(--color-primary);
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn {
+  border: 0.15rem solid var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-font-second);
+  border-radius: 0.6rem;
+  padding: 0.4rem 2rem;
+}
+.btn_log {
+  padding: 0.3rem 1.5rem;
+  border-width: 0.2rem;
+  transition: 0.3s linear;
+}
+.btn_log:hover {
+  background-color: var(--color-side);
+  color: var(--color-primary);
+}
+.btn-redact {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  background-color: var(--color-side);
+  color: var(--color-font);
+  border: none;
+}
+.btn-filter {
+  padding: 0.4rem 0.7rem;
+  background-color: var(--color-side);
+  color: var(--color-font);
+}
+.page-content {
+  margin-top: 9.5rem;
+  height: 100%;
+  width: 100%;
+}
+
+.page-register {
+  margin-top: 9.5rem;
+  height: 100%;
+}
