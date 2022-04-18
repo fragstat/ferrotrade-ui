@@ -50,7 +50,6 @@ export default {
   data() {
     return {
       value: this.type === 'counter' ? 1 : '',
-      redactable: true,
       temp: ''
     };
   },
@@ -90,7 +89,10 @@ export default {
     ph: String,
     error: {
       default: false
-    }
+    },
+    redactable: {
+      default: true
+    },
   },
 };
 </script>

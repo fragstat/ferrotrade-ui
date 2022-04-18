@@ -5,7 +5,7 @@
     <p>Марка: {{position.mark}}</p>
     <p>ГОСТ</p>
     <p>Диаметер: {{position.diameter}}</p>
-    <p>Вид поставки: {{position.paking}}</p>
+    <p>Вид поставки: {{position.packing}}</p>
     <p>Партия: {{position.part}}</p>
     <p>Плавка: {{position.plav}}</p>
     <p>Масса: {{position.mass}}</p>

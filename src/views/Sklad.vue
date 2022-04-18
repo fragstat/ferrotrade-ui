@@ -7,12 +7,16 @@
 			</router-link>
 			<router-link to="/sklad/Show">Посмотреть все </router-link>
 			<router-link to="/sklad/Searching">Поиск</router-link>
-			<router-link to="/sklad/SearchingMelt">Поиск по плавке</router-link>
-			<router-link to="/sklad/Unite">Объединить</router-link>
+      <a class="router-link_disabled" href="#">Поиск по плавке</a>
+      <a class="router-link_disabled" href="#">Объединить</a>
+			<!-- <router-link to="/sklad/SearchingMelt">Поиск по плавке</router-link> -->
+			<!-- <router-link to="/sklad/Unite">Объединить</router-link> -->
 			<router-link to="/sklad/Shipment">Отгрузка</router-link>
 			<router-link to="/sklad/ShipmentHistory">История отгрузок</router-link>
-			<router-link to="/sklad/Admission">Приёмка</router-link>
-			<router-link to="/sklad/ShipmentStore">Отправка на другой склад</router-link>
+      <a class="router-link_disabled" href="#">Приёмка</a>
+      <a class="router-link_disabled" href="#">Отправка на другой склад</a>
+			<!-- <router-link to="/sklad/Admission">Приёмка</router-link> -->
+			<!-- <router-link to="/sklad/ShipmentStore">Отправка на другой склад</router-link> -->
 		</nav>
 		<router-view />
 		<button class="btn btn_log" @click="logout">Выйти</button>
@@ -73,6 +77,10 @@ a {
   border: 3px solid var(--color-primary);
   border-radius: 0.7rem;
 	text-align: center;
+}
+a.router-link_disabled{
+  background-color: var(--color-side-light);
+  border: none;
 }
 .router-link-active {
   background-color: var(--font-second);

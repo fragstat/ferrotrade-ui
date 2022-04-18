@@ -1,5 +1,5 @@
 <template>
-  <div class="card-item">
+  <div class="card-item" v-on:click="moreInfo">
     <p class="cart-item__title">{{ isPosition ? 'Позиция' : 'Поддон' }}</p>
     <p class="card-item__text">Марка: {{position.mark}}</p>
     <p class="card-item__text">Диаметр: {{position.diameter}}</p>
@@ -9,7 +9,7 @@
     <p class="card-item__text">Вес: {{position.mass}}</p>
     <p class="card-item__text" v-if="position.comment">Комментарий: {{position.comment}}</p>
     <p class="card-item__text">Статус: {{position.status}}</p>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -40,6 +40,11 @@ export default {
         this.position.status = 'В дороге';
         break;
     }
+  },
+  methods: {
+    moreInfo(){
+      this.$router.replace({ name: "Product", params: { id:this.position.id } });
+    }
   }
 };
 </script>
@@ -52,6 +57,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  cursor: pointer;
 }
 .cart-item__title {
   font-size: 1.3rem;

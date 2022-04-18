@@ -1,6 +1,6 @@
 <template>
   <div class="party-page page-content">
-    <div class="party-page__items">
+    <div class="party-page__items" v-bind:class="{ 'party-page__items_full': !this.isTableView }">
       <div class="party-page__representation">
         <div class="party-page__view">
           Карточки
@@ -24,7 +24,7 @@
 
       </div>
       <div>
-        <CardList v-if="!isTableView"/>
+        <CardList v-if="!isTableView" />
         <PositionTable v-if="isTableView"
         :marks="selectedMarks"
         :packs="selectedPacks"
@@ -33,7 +33,7 @@
         />
       </div>
     </div>
-    <CastomFilter class="party-page__filters"
+    <CastomFilter v-if="this.isTableView" class="party-page__filters"
     @sendMarks='sendMarks'
     @sendDiameters='sendDiameters'
     @sendPacks='sendPacks'
@@ -88,9 +88,6 @@ export default {
       this.selectedPacks = packs
     },
   },
-  mounted() {
-
-  }
 };
 </script>
 
@@ -113,6 +110,9 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-left: 1.5rem;
+}
+.party-page__items_full {
+  width: 100%;
 }
 .party-page__all-sort {
   width: auto;

@@ -1,5 +1,5 @@
 <template>
-  <div id="print" class="print">
+  <div class="print">
     <Loader v-if="!loaded"/>
     <PrintCard
       v-for="uid in ids"
@@ -27,10 +27,7 @@ export default {
     }
   },
   mounted() {
-    setTimeout(() => {
-      this.loaded = true
-      this.$htmlToPaper('print')
-    }, 3000);
+
   }
 }
 </script>

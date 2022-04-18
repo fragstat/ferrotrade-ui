@@ -7,11 +7,8 @@
 
 <script>
 export default {
-  components: {
-
-  },
 	mounted() {
-		this.$router.replace({ name: "Login" });
+		// this.$router.replace({ name: "Login" });
 	},
 	
 }
