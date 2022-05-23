@@ -28,8 +28,14 @@ export default {
     }
   },
   mounted() {
-    const url = Vue.prototype.$hostname + '/api/position/marks'
-    fetch(url).then(response => response.json()).then(json => this.marks = json)
+    const url = Vue.prototype.hostname + '/api/position/marks'
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        "Content-Type" : "application/json",
+        "X-CSRF-TOKEN" : localStorage.token
+      }
+    }).then(response => response.json()).then(json => this.marks = json)
   },
   methods: {
     toSecondStep(data) {

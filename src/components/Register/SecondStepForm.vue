@@ -69,12 +69,13 @@ export default {
         const body = {
           'positions' : positions
         }
-        const addingUrl = Vue.prototype.$hostname + '/api/adding'
+        const addingUrl = Vue.prototype.hostname + '/api/adding'
         fetch(addingUrl, {
           method: 'POST',
           body: JSON.stringify(body),
           headers: {
-            "Content-Type" : "application/json"
+            "Content-Type" : "application/json",
+            "X-CSRF-TOKEN" : localStorage.token
           }
         })
             .then(response => response.json())

@@ -1,23 +1,67 @@
 <template>
 	<div class="auth-page">
-		<div class="auth-page__container center">
+		<div :class="error ? 'auth-page__container center error_div' : 'auth-page__container center'">
 			<img class="auth-page__img" src="../assets/icon.svg" alt="icon">
 			<p class="auth-page__title">Авторизация</p>
-			<input class="auth-page__login" type="text" placeholder="Логин">
-			<input class="auth-page__pass" type="password" placeholder="Пароль">
-			<button class="btn btn_log" type="submit" @click="login">Войти</button>
+			<input :class="error ? 'auth-page__login error' : 'auth-page__login'" type="text" v-model="login" placeholder="Логин">
+			<input :class="error ? 'auth-page__pass error' : 'auth-page__pass'" type="password" v-model="password" placeholder="Пароль">
+			<button :class="error ? 'btn btn_log_error error' : 'btn btn_log'" type="submit" @click="doLogin">Войти</button>
 		</div>
 	</div>
 </template>
 
 <script>
-export default {
-	methods: {
-		login(){
-			this.$router.replace({ name: "Sklad" });
-		}
-	},
+import Vue from "vue";
 
+export default {
+  data() {
+    return {
+      login : '',
+      password : '',
+      error : false
+    }
+  },
+	methods: {
+		doLogin(){
+      const authUrl = Vue.prototype.hostname + '/auth/login'
+      fetch(authUrl, {
+        method: 'POST',
+        body: {},
+        headers: {
+          "Content-Type" : "application/json",
+          'Authorization' : 'Basic ' + Buffer.from(this.login + ":" + this.password)
+              .toString('base64')
+        }
+      }).then(response => {
+        if (!response.ok) {
+          throw response;
+        }
+        return response.json();
+      }).then(json => {
+            localStorage.token = json.token;
+            localStorage.first_name = json.firstName;
+            localStorage.last_name = json.lastName;
+            localStorage.expired = json.expired;
+      }).then(() =>
+          this.$router.replace({ name: "Sklad" })
+      ).catch(() => {
+        this.error = true;
+        this.$notify({
+          type: 'error',
+          title: 'Ошибка авторизации',
+          text: 'Неверная пара логин-пароль'
+        })
+        setTimeout(() => this.error = false, 1000)
+      });
+		}
+  },
+  mounted() {
+      if (localStorage.expired) {
+        if (localStorage.expired > new Date().getTime()) {
+          this.$router.replace({ name: "Sklad" })
+        }
+      }
+  }
 }
 </script>
 
@@ -49,6 +93,11 @@ input::placeholder{
 	margin-top: 0.8rem;
 	border-radius: 0.7rem 0.7rem 0 0;
 }
+
+.error{
+  border: 3px solid var(--color-error);
+}
+
 .auth-page__pass{
 	border-top: none;
 	border-radius: 0 0 0.7rem 0.7rem;
@@ -56,4 +105,31 @@ input::placeholder{
 .btn_log{
 	margin-top: 2rem;
 }
+.btn_log_error{
+  margin-top: 2rem;
+  background-color: var(--color-error);
+}
+
+.error_div {
+   -webkit-animation-name:              shake;
+   -webkit-animation-duration:          0.8s;
+   -webkit-animation-iteration-count:   0.5;
+   -webkit-animation-timing-function:   linear;
+   -webkit-transform-origin:            50% 100%;
+}
+
+@-webkit-keyframes shake {
+  0%  { -webkit-transform:     translate(2px, 1px) rotate(0deg); }
+  10% { -webkit-transform:     translate(-1px, -2px) rotate(-2deg); }
+  20% { -webkit-transform:     translate(-3px, 0px) rotate(3deg); }
+  30% { -webkit-transform:     translate(0px, 2px) rotate(0deg); }
+  40% { -webkit-transform:     translate(1px, -1px) rotate(1deg); }
+  50% { -webkit-transform:     translate(-1px, 2px) rotate(-1deg); }
+  60% { -webkit-transform:     translate(-3px, 1px) rotate(0deg); }
+  70% { -webkit-transform:     translate(2px, 1px) rotate(-2deg); }
+  80% { -webkit-transform:     translate(-1px, -1px) rotate(4deg); }
+  90% { -webkit-transform:     translate(2px, 2px) rotate(0deg); }
+  100%{ -webkit-transform:     translate(1px, -2px) rotate(-1deg); }
+}
+
 </style>

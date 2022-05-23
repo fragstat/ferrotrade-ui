@@ -4,16 +4,20 @@ import axios from "axios";
 
 Vue.use(Vuex);
 
-const url = "";
+const url = Vue.prototype.hostname;
 
 export default new Vuex.Store({
   state: {
     marks: [],
+    token: ''
   },
   mutations: {
     SET_MARKS_TO_STATE: (state, marks) => {
       state.marks = marks;
     },
+    SET_TOKEN: (state, token) => {
+      state.token = token;
+    }
   },
   actions: {
     GET_MARKS_FROM_API({ commit }) {
@@ -35,5 +39,8 @@ export default new Vuex.Store({
     MARKS(state) {
       return state.marks;
     },
+    TOKEN: state => {
+      return this.state.token;
+    }
   },
 });

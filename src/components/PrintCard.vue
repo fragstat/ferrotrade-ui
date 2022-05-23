@@ -27,14 +27,20 @@ export default {
   },
   data() {
     return {
-      codeUrl: Vue.prototype.$hostname + '/api/code/',
-      positionUrl: Vue.prototype.$hostname + '/api/position/',
+      codeUrl: Vue.prototype.hostname + '/api/code/',
+      positionUrl: Vue.prototype.hostname + '/api/position/',
       id: 0,
       position: {}
     }
   },
   mounted() {
-    fetch(this.positionUrl).then(res => res.json()).then(json => this.position = json)
+    fetch(this.positionUrl, {
+      method: 'GET',
+      headers: {
+        "Content-Type" : "application/json",
+        "X-CSRF-TOKEN" : localStorage.token
+      }
+    }).then(res => res.json()).then(json => this.position = json)
   }
 }
 </script>

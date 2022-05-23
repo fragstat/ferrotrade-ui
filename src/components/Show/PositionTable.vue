@@ -27,7 +27,7 @@ import PositionTableRow from "@/components/Show/PositionTableRow";
 import Loader from "@/components/Loader";
 import Vue from "vue";
 
-const url = Vue.prototype.$hostname + '/api/adaptiveTable'
+const url = Vue.prototype.hostname + '/api/adaptiveTable'
 
 export default {
   name: "PositionTable",
@@ -55,7 +55,13 @@ export default {
     }
   },
   mounted() {
-    fetch(url)
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        "Content-Type" : "application/json",
+        "X-CSRF-TOKEN" : localStorage.token
+      }
+    })
         .then(response => response.json())
         .then(json => {
           this.rows = json

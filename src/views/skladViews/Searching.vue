@@ -35,12 +35,13 @@ export default {
       const body = {
         'query' : value
       }
-      const searchUrl = Vue.prototype.$hostname + '/api/search'
+      const searchUrl = Vue.prototype.hostname + '/api/search'
       fetch(searchUrl, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
-          "Content-Type" : "application/json"
+          "Content-Type" : "application/json",
+          "X-CSRF-TOKEN" : localStorage.token
         }
       })
           .then(response => response.json())

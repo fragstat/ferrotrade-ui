@@ -114,19 +114,31 @@ export default {
     }
   },
   mounted() {
-    const marksUrl = Vue.prototype.$hostname + '/api/position/marks'
-    const packsUrl = Vue.prototype.$hostname + '/api/position/packs'
-    fetch(marksUrl)
+    const marksUrl = Vue.prototype.hostname + '/api/position/marks'
+    const packsUrl = Vue.prototype.hostname + '/api/position/packs'
+    fetch(marksUrl, {
+      method: 'GET',
+      headers: {
+        "Content-Type" : "application/json",
+        "X-CSRF-TOKEN" : localStorage.token
+      }
+    })
         .then(response => response.json())
         .then(json => this.marks = json)
-    fetch(packsUrl)
+    fetch(packsUrl, {
+      method: 'GET',
+      headers: {
+        "Content-Type" : "application/json",
+        "X-CSRF-TOKEN" : localStorage.token
+      }
+    })
         .then(response => response.json())
         .then(json => this.packs = json)
         .then(() => this.packs.unshift("Выберете упаковку"))
   },
   methods: {
     validateParam() {
-      const validationUrl = Vue.prototype.$hostname + '/api/add/validate';
+      const validationUrl = Vue.prototype.hostname + '/api/add/validate';
       if (this.position.part && this.position.plav && this.position.mark && this.position.diameter) {
         const body = {
           part: this.position.part,
@@ -139,7 +151,8 @@ export default {
           method: 'POST',
           body: JSON.stringify(body),
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN" : localStorage.token
           }
         })
             .then(res => res.text())

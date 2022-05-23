@@ -15,7 +15,7 @@ import CardItem from "@/components/CardItem";
 import Loader from "@/components/Loader";
 import Vue from 'vue'
 
-const reqUrl = Vue.prototype.$hostname + "/api/positions"
+const reqUrl = Vue.prototype.hostname + "/api/positions"
 export default {
   name: "CardList",
   components: {
@@ -28,7 +28,13 @@ export default {
     }
   },
   mounted() {
-    fetch(reqUrl)
+    fetch(reqUrl, {
+      method: 'GET',
+      headers: {
+        "Content-Type" : "application/json",
+        "X-CSRF-TOKEN" : localStorage.token
+      }
+    })
       .then(response => response.json())
       .then(json => this.positions = json)
       .then(() => this.loading = false)

@@ -24,7 +24,7 @@ const options = {
 }
 
 Vue.config.productionTip = false;
-Vue.prototype.$hostname = (Vue.config.productionTip) ? 'http://ferro-trade.ru:80' :'http://localhost:80'
+Vue.prototype.hostname = (Vue.config.productionTip) ? 'http://ferro-trade.ru:80' :'http://localhost:80'
 Vue.use(Notifications)
 Vue.use(VueHtmlToPaper, options)
 

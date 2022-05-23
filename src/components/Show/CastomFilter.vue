@@ -51,7 +51,7 @@ import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 import Vue from "vue";
 import Loader from "@/components/Loader";
-const hostname = Vue.prototype.$hostname + '/api/position/'
+const hostname = Vue.prototype.hostname + '/api/position/'
 
 
 export default {
@@ -100,18 +100,34 @@ export default {
     }
   },
   mounted() {
-    const markFetch = fetch(hostname + 'marks')
+    const markFetch = fetch(hostname + 'marks', {
+      method: 'GET',
+      headers: {
+        "Content-Type" : "application/json",
+        "X-CSRF-TOKEN" : localStorage.token
+      }
+    })
         .then(response => response.json())
         .then(json => this.marks = json)
-    const diameterFetch = fetch(hostname + 'diameter')
-        .then(response => response.json())
+    const diameterFetch = fetch(hostname + 'diameter', {
+      method: 'GET',
+      headers: {
+        "Content-Type" : "application/json",
+        "X-CSRF-TOKEN" : localStorage.token
+      }
+    }).then(response => response.json())
         .then(json => {
           this.minDiametr = Number.parseFloat(json[0])
           this.maxDiametr = Number.parseFloat(json[1])
           this.selectedDiametrs = [this.minDiametr, this.maxDiametr]
         })
-    const packsFetch = fetch(hostname + 'packs')
-        .then(response => response.json())
+    const packsFetch = fetch(hostname + 'packs', {
+      method: 'GET',
+      headers: {
+        "Content-Type" : "application/json",
+        "X-CSRF-TOKEN" : localStorage.token
+      }
+    }).then(response => response.json())
         .then(json => this.packs = json)
     Promise.all([markFetch, diameterFetch, packsFetch])
         .then(() => {

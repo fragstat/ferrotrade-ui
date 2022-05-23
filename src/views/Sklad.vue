@@ -22,8 +22,17 @@
 <script>
 export default {
 	name: "Sklad",
+  props: {
+    token : String,
+    first_name : String,
+    last_name : String
+  },
 	methods: {
 		logout(){
+      localStorage.token = '';
+      localStorage.expired = 0;
+      localStorage.first_name = '';
+      localStorage.last_name = '';
 			this.$router.replace({ name: "Login" });
 		},
 	},

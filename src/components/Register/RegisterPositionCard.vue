@@ -72,7 +72,7 @@ export default {
           && this.position.part && this.position.pack && this.position.weight && this.position.manufacturer) {
         if (this.addPosition.position.mark || this.addPosition.position.diameter
             || this.addPosition.position.plav || this.addPosition.position.part) {
-          const validationUrl = Vue.prototype.$hostname + '/api/add/validate';
+          const validationUrl = Vue.prototype.hostname + '/api/add/validate';
           const body = {
             part: this.position.part,
             plav: this.position.plav,
@@ -84,7 +84,8 @@ export default {
             method: 'POST',
             body: JSON.stringify(body),
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              "X-CSRF-TOKEN" : localStorage.token
             }
           }).then(res => res.text()).then(text => {
                 if (text === 'false') {
@@ -134,14 +135,26 @@ export default {
   },
   mounted() {
     if (!this.addPosition.position.mark) {
-      const marksUrl = Vue.prototype.$hostname + '/api/position/marks'
-      fetch(marksUrl)
+      const marksUrl = Vue.prototype.hostname + '/api/position/marks'
+      fetch(marksUrl, {
+        method: 'GET',
+        headers: {
+          "Content-Type" : "application/json",
+          "X-CSRF-TOKEN" : localStorage.token
+        }
+      })
           .then(response => response.json())
           .then(json => this.marks = json)
     }
     if (!this.addPosition.position.packing) {
-      const marksUrl = Vue.prototype.$hostname + '/api/position/packs'
-      fetch(marksUrl)
+      const marksUrl = Vue.prototype.hostname + '/api/position/packs'
+      fetch(marksUrl, {
+        method: 'GET',
+        headers: {
+          "Content-Type" : "application/json",
+          "X-CSRF-TOKEN" : localStorage.token
+        }
+      })
           .then(response => response.json())
           .then(json => this.packs = json)
           .then(() => this.packs.unshift("Выберете упаковку"))
