@@ -35,18 +35,26 @@ export default {
       const body = {
         'query' : value
       }
-      const searchUrl = Vue.prototype.hostname + '/api/search'
+      const searchUrl = Vue.prototype.hostname + '/api/v1/search?' + new URLSearchParams(body).toString()
       fetch(searchUrl, {
-        method: 'POST',
-        body: JSON.stringify(body),
+        method: 'GET',
         headers: {
           "Content-Type" : "application/json",
-          "X-CSRF-TOKEN" : localStorage.token
+          "Authorization" : "Bearer " + localStorage.token
         }
       })
           .then(response => response.json())
           .then(json => this.positions = json)
           .then(() => this.loaded = true)
+          .then(() => {
+              if (this.positions.length === 0) {
+                  this.$notify({
+                    type: 'error',
+                    title: 'Поиск не удался'
+                  })
+                }
+              }
+          )
     }
   }
 };

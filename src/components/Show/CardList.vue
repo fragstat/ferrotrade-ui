@@ -15,7 +15,7 @@ import CardItem from "@/components/CardItem";
 import Loader from "@/components/Loader";
 import Vue from 'vue'
 
-const reqUrl = Vue.prototype.hostname + "/api/positions"
+const reqUrl = Vue.prototype.hostname + "/api/v1/position"
 export default {
   name: "CardList",
   components: {
@@ -32,7 +32,7 @@ export default {
       method: 'GET',
       headers: {
         "Content-Type" : "application/json",
-        "X-CSRF-TOKEN" : localStorage.token
+        "Authorization" : "Bearer " + localStorage.token
       }
     })
       .then(response => response.json())

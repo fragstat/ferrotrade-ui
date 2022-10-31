@@ -1,14 +1,16 @@
 <template>
-  <div class="card-item">
-    <p class="cart-item__title">{{ isPosition ? 'Позиция' : 'Поддон' }}</p>
-    <p class="card-item__text">Марка: {{position.mark}}</p>
-    <p class="card-item__text">Диаметр: {{position.diameter}}</p>
-    <p class="card-item__text">Упаковка: {{position.packing}}</p>
-    <p class="card-item__text">Партия: {{position.part}}</p>
-    <p class="card-item__text">Плавка: {{position.plav}}</p>
-    <p class="card-item__text">Вес: {{position.mass}}</p>
-    <p class="card-item__text" v-if="position.comment">Комментарий: {{position.comment}}</p>
-    <p class="card-item__text">Статус: {{position.status}}</p>
+  <div v-on:click="" class="card-item">
+    <p class="cart-item__title">{{ position.type }}</p>
+    <p class="card-item__text"><span>Марка:</span> {{position.mark}}</p>
+    <p class="card-item__text"><span>Диаметр:</span> {{position.diameter}}</p>
+    <p class="card-item__text"><span>Упаковка:</span> {{position.packing}}</p>
+    <p class="card-item__text"><span>Партия:</span> {{position.part}}</p>
+    <p class="card-item__text"><span>Плавка:</span> {{position.plav}}</p>
+    <p class="card-item__text"><span>Вес:</span> {{position.weight}}</p>
+    <p class="card-item__text" v-if="position.comment"><span>Комментарий:</span> {{position.comment}}</p>
+    <p class="card-item__text"><span>Статус:</span> {{position.status}}</p>
+    <p class="card-item__text"><span>Склад:</span></p>
+    <p class="card-item__text">{{position.location}}</p>
   </div>
 </template>
 
@@ -20,26 +22,9 @@ export default {
       type : Object
     }
   },
-  data() {
-    return {
-      isPosition: true,
-    }
-  },
-  mounted() {
-    if (!this.position.hasOwnProperty("createdFrom")) {
-      this.isPosition = false
-    }
-    switch (this.position.status) {
-      case 'In_stock':
-        this.position.status = 'На складе';
-        break;
-      case 'Departured':
-        this.position.status = 'Отгружен';
-        break;
-      case 'Arriving':
-        this.position.status = 'В дороге';
-        break;
-    }
+  methods: {
+    
+    this.$router.replace({ name: "Sklad" })
   }
 };
 </script>
@@ -62,5 +47,8 @@ export default {
   padding-top: 0.4rem;
   text-align: start;
   word-break: break-all;
+}
+span {
+  font-style: italic;
 }
 </style>

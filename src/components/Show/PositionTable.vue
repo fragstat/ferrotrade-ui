@@ -9,7 +9,8 @@
         <th>Диаметр</th>
         <th>Упаковка</th>
         <th>Солнечногорск</th>
-        <th>Белорецк</th>
+        <th>Белорецк(Склад)</th>
+        <th>Белорецк(Произ-во)</th>
       </tr>
      </thead>
       <tbody>
@@ -27,7 +28,7 @@ import PositionTableRow from "@/components/Show/PositionTableRow";
 import Loader from "@/components/Loader";
 import Vue from "vue";
 
-const url = Vue.prototype.hostname + '/api/adaptiveTable'
+const url = Vue.prototype.hostname + '/api/v1/filter/table'
 
 export default {
   name: "PositionTable",
@@ -59,14 +60,14 @@ export default {
       method: 'GET',
       headers: {
         "Content-Type" : "application/json",
-        "X-CSRF-TOKEN" : localStorage.token
+        "Authorization" : "Bearer " + localStorage.token
       }
     })
         .then(response => response.json())
         .then(json => {
           this.rows = json
           this.loaded = true
-    })
+    }).catch(err => console.log(err))
   },
   computed: {
     filterTable() {

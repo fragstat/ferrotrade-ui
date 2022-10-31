@@ -27,6 +27,8 @@ export default {
     positions : {
       type : Array
     }
+  },
+  mounted() {
   }
 }
 </script>

@@ -51,7 +51,7 @@ import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 import Vue from "vue";
 import Loader from "@/components/Loader";
-const hostname = Vue.prototype.hostname + '/api/position/'
+const hostname = Vue.prototype.hostname + '/api/v1/filter/'
 
 
 export default {
@@ -104,7 +104,7 @@ export default {
       method: 'GET',
       headers: {
         "Content-Type" : "application/json",
-        "X-CSRF-TOKEN" : localStorage.token
+        "Authorization" : "Bearer " + localStorage.token
       }
     })
         .then(response => response.json())
@@ -113,19 +113,19 @@ export default {
       method: 'GET',
       headers: {
         "Content-Type" : "application/json",
-        "X-CSRF-TOKEN" : localStorage.token
+        "Authorization" : "Bearer " + localStorage.token
       }
     }).then(response => response.json())
         .then(json => {
-          this.minDiametr = Number.parseFloat(json[0])
-          this.maxDiametr = Number.parseFloat(json[1])
+          this.minDiametr = Number.parseFloat(json.min)
+          this.maxDiametr = Number.parseFloat(json.max)
           this.selectedDiametrs = [this.minDiametr, this.maxDiametr]
         })
-    const packsFetch = fetch(hostname + 'packs', {
+    const packsFetch = fetch(hostname + 'packings', {
       method: 'GET',
       headers: {
         "Content-Type" : "application/json",
-        "X-CSRF-TOKEN" : localStorage.token
+        "Authorization" : "Bearer " + localStorage.token
       }
     }).then(response => response.json())
         .then(json => this.packs = json)
